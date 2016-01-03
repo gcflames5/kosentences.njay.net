@@ -2,7 +2,6 @@
   - example["korean"].split(" ").each do |word|
     - search_term = word.gsub(/[^[:alnum:]]/, "")
     %span{class: "search_term ko", word: search_term, style: "#{"font-weight:bold" if @word == search_term}"}
-      -puts @word + "  " + search_term + "  " + (@word==search_term).to_s
       =word
   %br
   - example["english"].split(" ").each do |word|
