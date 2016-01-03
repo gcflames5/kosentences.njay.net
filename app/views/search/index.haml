@@ -15,7 +15,11 @@
 
 :javascript
   function fetchResults(){
-    toggleSearchAndLoad();
+    if ($("#query").val() == ""){
+      return;
+    }
+
+    hideSearchShowLoad();
     $("#results").slideUp("slow");
     $.ajax({
           type: "POST",
@@ -23,14 +27,19 @@
           data: { query: $("#query").val() }
          }).done(function(data){
            $("#results").html(data);
-           toggleSearchAndLoad();
+           showSeachHideLoad();
            $("#results").slideDown("fast");
     });
   }
 
-  function toggleSearchAndLoad(){
-    $("#search-icon").toggle();
-    $("#loading-icon").toggle();
+  function hideSearchShowLoad(){
+    $("#search-icon").hide();
+    $("#loading-icon").show();
+  }
+
+  function showSeachHideLoad(){
+    $("#search-icon").show();
+    $("#loading-icon").hide();
   }
 
   $("#submit_query").click(fetchResults);
