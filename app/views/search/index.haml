@@ -1,0 +1,38 @@
+.row
+  .col-sm-6.col-sm-offset-3
+    #title_container
+      %h1#search_header
+        알고 싶은 단어를 밑에 입력하세요
+    #search_container
+      .input-group.stylish-input-group
+        %input.form-control#query{:placeholder => "Search", :type => "text"}
+          %span.input-group-addon#submit_query
+            %span
+              %span.glyphicon.glyphicon-search
+    #results
+
+:javascript
+  function fetchResults(){
+    $("#results").slideUp("slow");
+    $.ajax({
+          type: "POST",
+          url: "#{search_results_path}",
+          data: { query: $("#query").val() }
+         }).done(function(data){
+           $("#results").html(data);
+           $("#results").slideDown("fast");
+    });
+  }
+
+  $("#submit_query").click(fetchResults);
+
+  $(document).on('click', '.search_term', function(el){
+    $("#query").val($(this).attr("word"));
+    fetchResults();
+  });
+
+  $('#query').keyup(function(e){
+      if(e.keyCode == 13){
+          fetchResults();
+      }
+  });

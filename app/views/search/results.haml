@@ -1,0 +1,11 @@
+- @json.each do |example|
+  - example["korean"].split(" ").each do |word|
+    - search_term = word.gsub(/[^[:alnum:]]/, "")
+    %span{class: "search_term ko", word: search_term, style: "#{"bold" if @word == search_term}"}
+      =word
+  %br
+  - example["english"].split(" ").each do |word|
+    - search_term = word.gsub(/[^[:alnum:]]/, "")
+    %span{class: "search_term eng", word: search_term, style: "#{"font-weight:bold" if @word.casecmp(search_term).zero?}"}
+      =word
+  %hr
