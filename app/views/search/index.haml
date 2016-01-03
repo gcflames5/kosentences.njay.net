@@ -7,12 +7,15 @@
       .input-group.stylish-input-group
         %input.form-control#query{:placeholder => "검색", :type => "text"}
           %span.input-group-addon#submit_query
-            %span
+            %span#search-icon
               %span.glyphicon.glyphicon-search
+            %span#loading-icon
+              = image_tag("loading.gif", size: "20x20", alt: "loading...")
     #results
 
 :javascript
   function fetchResults(){
+    toggleSearchAndLoad();
     $("#results").slideUp("slow");
     $.ajax({
           type: "POST",
@@ -20,8 +23,14 @@
           data: { query: $("#query").val() }
          }).done(function(data){
            $("#results").html(data);
+           toggleSearchAndLoad();
            $("#results").slideDown("fast");
     });
+  }
+
+  function toggleSearchAndLoad(){
+    $("#search-icon").toggle();
+    $("#loading-icon").toggle();
   }
 
   $("#submit_query").click(fetchResults);

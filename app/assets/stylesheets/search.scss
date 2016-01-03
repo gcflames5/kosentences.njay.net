@@ -8,6 +8,10 @@
   padding-bottom: 5%;
 }
 
+#loading-icon{
+  display:none;
+}
+
 .ko{
   color: black;
   font-size: 1.3em;
@@ -21,7 +25,6 @@
 .ko:hover{
   background-color: yellow;
 }
-
 
 .eng:hover{
   background-color: yellow;
